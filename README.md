@@ -17,3 +17,11 @@ We have parallelized the algorithm by splitting congruences classes into
 separate cases.  For example, we have that x^5 = x (mod 30), so that x^5 + y^5
 = x + y (mod 30).  Thus, we can check each congruence class separately,
 according to x + y (mod 30).  Each power requires its own choice of modulus.
+
+Usage:
+
+two5p M
+    This searches for x > y > 0 such that k = x^5 + y^5 two representations as
+    a sum of two fifth powers. The algorithm uses 128 bit integers internally,
+    so speed is slightly sacrificed in order to expand the search space.  We
+    can search up to x = 44275338 before any overlapping.
