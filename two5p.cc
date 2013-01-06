@@ -41,23 +41,22 @@ int main(int argc, char *argv[])
 
     // Input the power p and the bound M.
     if (argc == 2) {
-        M = atol(argv[1]);
+        M = atoi(argv[1]);
     }
 
     if (argc != 2) {
-        cout << "usage: two5_parallel M\n";
+        cout << "usage: two5p M\n";
         return 0;
     }
-
 
     priority_queue<struct triple, vector<struct triple>, compare_triples> H;
     triple heap_entry, last, current, next;
 
     # pragma omp parallel for schedule(dynamic) private(H, heap_entry, last, current, next, i, x, y, n, a, b)
-    for (i = 0; i <= mod; i++) {
+    for (i = 0; i < mod; i++) {
         # pragma omp critical
         {
-            cout << "thread " << i << endl;
+            cout << "Checking " << i <<  " (mod " << mod << ")\n";
         }
         for (x = 1; x < M; x++) {
             if ((x + 1) % mod == i) {
@@ -79,9 +78,9 @@ int main(int argc, char *argv[])
             }
         }
 
-        last.sum = (uint128_t)0;
-        last.a = (uint32_t)0;
-        last.b = (uint32_t)0;
+        last.sum = (uint128_t) 0;
+        last.a = (uint32_t) 0;
+        last.b = (uint32_t) 0;
 
         while (!H.empty()) {
             current = H.top();
@@ -106,10 +105,6 @@ int main(int argc, char *argv[])
                 next.b = b;
                 H.push(next);
             }
-        }
-        # pragma omp critical
-        {
-            cout << "thread " << i << " complete" << endl;
         }
     }
 
