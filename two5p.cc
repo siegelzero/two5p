@@ -54,10 +54,12 @@ int main(int argc, char *argv[])
 
     # pragma omp parallel for schedule(dynamic) private(H, heap_entry, last, current, next, i, x, y, n, a, b)
     for (i = 0; i < mod; i++) {
+        /*
         # pragma omp critical
         {
             cout << "Checking " << i <<  " (mod " << mod << ")\n";
         }
+        */
         for (x = 1; x < M; x++) {
             if ((x + 1) % mod == i) {
                 heap_entry.sum = 1 + pow(x, p);
